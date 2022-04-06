@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import SearchPlace from './SerchPlace';
+import React, { useEffect, useState } from 'react';
 
 const { kakao } = window;
 
-const MapContainer = ({ SearchPlace }) => {
+const MapContainer = ({ searchPlace }) => {
+
     useEffect(() => {
       const container = document.getElementById("myMap");
       const options = {
@@ -14,7 +14,7 @@ const MapContainer = ({ SearchPlace }) => {
   
       const ps = new kakao.maps.services.Places();
   
-      ps.keywordSearch(SearchPlace, placesSearchCB);
+      ps.keywordSearch(searchPlace, placesSearchCB);
   
       function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
@@ -34,13 +34,19 @@ const MapContainer = ({ SearchPlace }) => {
           map: map,
           position: new kakao.maps.LatLng(place.y, place.x),
         });
+        let infowindow = new kakao.maps.InfoWindow({zIndex:1});
+        kakao.maps.event.addListener(marker, 'click', function() {
+          // 마커를 클릭하면 장소명이 인포윈도우에 표출
+          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+          infowindow.open(map, marker);
+      });
       }
-    }, [SearchPlace]);
+    }, [searchPlace]);
 
     return (
         <div id='myMap' style={{
-            width: '500px', 
-            height: '500px'
+            width: '100%', 
+            height: '100vh'
         }}></div>
     );
 }

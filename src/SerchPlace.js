@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MapContainer from "./MapContainer";
+import * as S from "./StyledComponent"
 
 const SearchPlace = () => {
   const [inputText, setInputText] = useState("");
@@ -17,14 +18,15 @@ const SearchPlace = () => {
 
   return (
     <>
-      <form className="inputForm" onSubmit={handleSubmit}>
+      {/* <div style={{width: 100,background: "#000", height: 100, position: 'absolute', zIndex: 100000}}></div> */}
+      <S.SearchBar className="inputForm" onSubmit={handleSubmit}>
         <input
           placeholder="Search Place..."
           onChange={onChange}
           value={inputText}
         />
         <button type="submit">검색</button>
-      </form>
+      </S.SearchBar>
       <MapContainer searchPlace={place} />
     </>
   );
