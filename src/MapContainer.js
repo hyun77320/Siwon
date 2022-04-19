@@ -1,54 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; //eslint-disable-line no-unused-vars
 
 const { kakao } = window;
 
-const MapContainer = ({ searchPlace }) => {
-
-    useEffect(() => {
-      const container = document.getElementById("myMap");
-      const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-      const map = new kakao.maps.Map(container, options);
+const MapContainer = () => {
+  useEffect(() => {
+    const container = document.getElementById('map'); // 지도를 표시할 div 
+    const options = { 
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      level: 3 // 지도의 확대 레벨
+    };
+    
+    const map = new kakao.maps.Map(container, options); //eslint-disable-line no-unused-vars
+  });
   
-      const ps = new kakao.maps.services.Places();
-  
-      ps.keywordSearch(searchPlace, placesSearchCB);
-  
-      function placesSearchCB(data, status, pagination) {
-        if (status === kakao.maps.services.Status.OK) {
-          let bounds = new kakao.maps.LatLngBounds();
-  
-          for (let i = 0; i < data.length; i++) {
-            displayMarker(data[i]);
-            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-          }
-  
-          map.setBounds(bounds);
-        }
-      }
-  
-      function displayMarker(place) {
-        let marker = new kakao.maps.Marker({
-          map: map,
-          position: new kakao.maps.LatLng(place.y, place.x),
-        });
-        let infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        kakao.maps.event.addListener(marker, 'click', function() {
-          // 마커를 클릭하면 장소명이 인포윈도우에 표출
-          infowindow.setContent('<div style="font-size:12px;">' + place.place_name + '</div>');
-          infowindow.open(map, marker);
-      });
-      }
-    }, [searchPlace]);
-
-    return (
-        <div id='myMap' style={{
-            width: '100%', 
-            height: '100vh'
-        }}></div>
-    );
+  return (
+    <>
+      <div id="map" style={{
+        width: '100%', 
+        height: '100vh'
+      }}></div>
+    </>
+  );
 }
 
 export default MapContainer;

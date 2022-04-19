@@ -1,10 +1,10 @@
 import React from 'react';
-// import MapContainer from './MapContainer';
-import SearchPlace from "./SerchPlace";
+import MapContainer from './MapContainer';
+import SearchPlace from "./SerchPlace"; //eslint-disable-line no-unused-vars
 
 const App = () => {
   return (
-    <SearchPlace />
+    <MapContainer />
   );
 };
 
