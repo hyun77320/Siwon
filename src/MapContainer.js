@@ -31,6 +31,7 @@ const MapContainer = () => {
     </>
   );  
 }
+
 function searchPlaces(keyword) {
   const ps = new kakao.maps.services.Places();  
 
