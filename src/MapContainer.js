@@ -37,6 +37,7 @@ function searchPlaces(keyword) {
 
   if (!keyword.replace(/^\s+|\s+$/g, '')) {
       alert('키워드를 입력해주세요!');
+      console.log(keyword)
       return false;
   }
 
